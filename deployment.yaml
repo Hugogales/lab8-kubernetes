@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chatapp
+  labels:
+    app: chatapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chatapp
+  template:
+    metadata:
+      labels:
+        app: chatapp
+    spec:
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - name: chatapp
+        image: registry.digitalocean.com/lab8-kubernetes/chat-app
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000 

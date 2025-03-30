@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Chat App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 80vh;
+        }
+        .chat-header {
+            background-color: #3498db;
+            color: white;
+            padding: 10px;
+            border-radius: 5px 5px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chat-messages {
+            flex: 1;
+            border: 1px solid #ddd;
+            padding: 10px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+        }
+        .message {
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        .message .username {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        .message .timestamp {
+            font-size: 0.8em;
+            color: #999;
+            margin-left: 5px;
+        }
+        .chat-input {
+            display: flex;
+            margin-top: 10px;
+        }
+        .chat-input input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        .chat-input button {
+            padding: 10px 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .chat-input button:hover {
+            background-color: #2980b9;
+        }
+        .user-settings {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+        .user-settings h3 {
+            margin-top: 0;
+        }
+        .user-settings .form-group {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .user-settings label {
+            width: 100px;
+        }
+        .user-settings input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .user-settings button {
+            padding: 8px 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #2ecc71;
+            color: white;
+            border-radius: 4px;
+            display: none;
+            z-index: 1000;
+        }
+        .notification.error {
+            background-color: #e74c3c;
+        }
+        .color-display {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+        }
+        .color-swatch {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+        }
+        .color-code {
+            font-family: monospace;
+            font-size: 14px;
+        }
+        .current-color-info {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+            background-color: white;
+            padding: 5px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="notification" id="notification"></div>
+    
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>Simple Chat Room</h1>
+            <span id="current-user">Not logged in</span>
+        </div>
+        
+        <div class="chat-messages" id="chat-messages">
+            <!-- Messages will be displayed here -->
+        </div>
+        
+        <div class="chat-input">
+            <input type="text" id="message-input" placeholder="Type your message here..." autocomplete="off">
+            <button id="send-button">Send</button>
+        </div>
+    </div>
+    
+    <div class="user-settings">
+        <h3>User Settings</h3>
+        <div class="form-group">
+            <label for="username-input">Username:</label>
+            <input type="text" id="username-input" placeholder="Enter your username">
+            <button id="save-username">Save</button>
+        </div>
+        <div class="form-group">
+            <label for="color-input">Text Color:</label>
+            <input type="color" id="color-input" value="#3498db">
+            <button id="save-color">Save</button>
+        </div>
+        <div class="current-color-info">
+            <span>Current color: </span>
+            <div class="color-display">
+                <div id="color-swatch" class="color-swatch"></div>
+                <span id="color-code" class="color-code">#3498db</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Main chat functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elements
+            const chatMessages = document.getElementById('chat-messages');
+            const messageInput = document.getElementById('message-input');
+            const sendButton = document.getElementById('send-button');
+            const usernameInput = document.getElementById('username-input');
+            const saveUsernameButton = document.getElementById('save-username');
+            const colorInput = document.getElementById('color-input');
+            const saveColorButton = document.getElementById('save-color');
+            const currentUser = document.getElementById('current-user');
+            const notification = document.getElementById('notification');
+            const colorSwatch = document.getElementById('color-swatch');
+            const colorCode = document.getElementById('color-code');
+            
+            // Get username from localStorage or generate a random one
+            let username = localStorage.getItem('chat-username') || 'User' + Math.floor(Math.random() * 1000);
+            let userColor = localStorage.getItem('chat-color') || '#3498db';
+            
+            // Initialize user display
+            usernameInput.value = username;
+            colorInput.value = userColor;
+            currentUser.textContent = username;
+            currentUser.style.color = userColor;
+            
+            // Initialize color display
+            updateColorDisplay(userColor);
+            
+            // Function to update color display
+            function updateColorDisplay(color) {
+                colorSwatch.style.backgroundColor = color;
+                colorCode.textContent = color;
+                colorInput.value = color;
+            }
+            
+            // Show notification
+            function showNotification(message, success = true) {
+                notification.textContent = message;
+                notification.className = success ? 'notification' : 'notification error';
+                notification.style.display = 'block';
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 3000);
+            }
+            
+            // Load messages
+            function loadMessages() {
+                fetch('/api/messages')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(messages => {
+                        chatMessages.innerHTML = '';
+                        messages.forEach(message => {
+                            const messageEl = document.createElement('div');
+                            messageEl.className = 'message';
+                            
+                            const usernameEl = document.createElement('span');
+                            usernameEl.className = 'username';
+                            usernameEl.textContent = message.username || message.user;
+                            usernameEl.style.color = message.color || '#000';
+                            
+                            const contentEl = document.createElement('span');
+                            contentEl.className = 'content';
+                            contentEl.textContent = message.content || message.text;
+                            
+                            const timeEl = document.createElement('span');
+                            timeEl.className = 'timestamp';
+                            
+                            const timestamp = message.timestamp || message.created_at;
+                            let date;
+                            try {
+                                date = new Date(timestamp);
+                                timeEl.textContent = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                            } catch (e) {
+                                timeEl.textContent = '';
+                            }
+                            
+                            messageEl.appendChild(usernameEl);
+                            messageEl.appendChild(document.createTextNode(': '));
+                            messageEl.appendChild(contentEl);
+                            messageEl.appendChild(timeEl);
+                            
+                            chatMessages.appendChild(messageEl);
+                        });
+                        
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                    })
+                    .catch(error => {
+                        console.error('Error loading messages:', error);
+                        showNotification('Failed to load messages. Please try again.', false);
+                    });
+            }
+            
+            // Send a message
+            function sendMessage() {
+                const content = messageInput.value.trim();
+                if (!content) return;
+                
+                const messageData = {
+                    username: username,
+                    user: username,
+                    content: content,
+                    text: content,
+                    color: userColor
+                };
+                
+                fetch('/api/messages', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(messageData)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(() => {
+                    messageInput.value = '';
+                    loadMessages();
+                })
+                .catch(error => {
+                    console.error('Error sending message:', error);
+                    showNotification('Failed to send message. Please try again.', false);
+                });
+            }
+            
+            // Change username
+            function changeUsername() {
+                const newUsername = usernameInput.value.trim();
+                if (!newUsername) return;
+                
+                fetch('/api/users/rename', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        old_username: username,
+                        new_username: newUsername
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        showNotification(data.error);
+                    } else {
+                        username = newUsername;
+                        localStorage.setItem('chat-username', username);
+                        currentUser.textContent = username;
+                        showNotification('Username updated successfully!');
+                        loadMessages();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error changing username:', error);
+                });
+            }
+            
+            // Change color
+            function changeColor() {
+                const newColor = colorInput.value;
+                
+                fetch('/api/users/color', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        color: newColor
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    userColor = newColor;
+                    localStorage.setItem('chat-color', userColor);
+                    currentUser.style.color = userColor;
+                    updateColorDisplay(userColor);
+                    showNotification('Color updated successfully!');
+                    loadMessages();
+                })
+                .catch(error => {
+                    console.error('Error changing color:', error);
+                });
+            }
+            
+            // Event listeners
+            sendButton.addEventListener('click', sendMessage);
+            messageInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            saveUsernameButton.addEventListener('click', changeUsername);
+            saveColorButton.addEventListener('click', changeColor);
+            
+            // Update color display when color input changes
+            colorInput.addEventListener('input', function() {
+                updateColorDisplay(this.value);
+            });
+            
+            // Load messages initially
+            loadMessages();
+            
+            // Poll for new messages every 3 seconds
+            setInterval(loadMessages, 3000);
+        });
+    </script>
+</body>
+</html> 
