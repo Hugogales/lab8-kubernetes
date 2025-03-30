@@ -1,6 +1,6 @@
-PWD c:\Users\garrido-lestacheh\OneDrive - Milwaukee School of Engineering\School\3rd\Sprin\Cloud & Microservices\Labs\Lab7\report
+PWD c:\Users\garrido-lestacheh\OneDrive - Milwaukee School of Engineering\School\3rd\Sprin\Cloud & Microservices\Labs\Lab8\report
 INPUT C:\Users\garrido-lestacheh\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
-INPUT c:\Users\garrido-lestacheh\OneDrive - Milwaukee School of Engineering\School\3rd\Sprin\Cloud & Microservices\Labs\Lab7\report\report.tex
+INPUT c:\Users\garrido-lestacheh\OneDrive - Milwaukee School of Engineering\School\3rd\Sprin\Cloud & Microservices\Labs\Lab8\report\report.tex
 OUTPUT report.log
 INPUT C:\Users\garrido-lestacheh\AppData\Local\Programs\MiKTeX\tex\latex\base\Article.cls
 INPUT C:\Users\garrido-lestacheh\AppData\Local\Programs\MiKTeX\tex\latex\base\Article.cls
@@ -192,14 +192,14 @@ INPUT .\images\1.png
 INPUT .\images\1.png
 INPUT .\images\1.png
 INPUT .\images\1.png
-INPUT .\images\2.png
-INPUT .\images\2.png
-INPUT .\images\2.png
-INPUT .\images\2.png
-INPUT .\images\2.png
-INPUT .\images\2.png
-INPUT .\images\2.png
 INPUT C:\Users\garrido-lestacheh\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
+INPUT .\images\2.png
+INPUT .\images\2.png
+INPUT .\images\2.png
+INPUT .\images\2.png
+INPUT .\images\2.png
+INPUT .\images\2.png
+INPUT .\images\2.png
 INPUT .\images\3.png
 INPUT .\images\3.png
 INPUT .\images\3.png
@@ -214,7 +214,20 @@ INPUT .\images\4.png
 INPUT .\images\4.png
 INPUT .\images\4.png
 INPUT .\images\4.png
-INPUT C:\Users\garrido-lestacheh\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx12.tfm
+INPUT .\images\5.png
+INPUT .\images\5.png
+INPUT .\images\5.png
+INPUT .\images\5.png
+INPUT .\images\5.png
+INPUT .\images\5.png
+INPUT .\images\5.png
+INPUT .\images\6.png
+INPUT .\images\6.png
+INPUT .\images\6.png
+INPUT .\images\6.png
+INPUT .\images\6.png
+INPUT .\images\6.png
+INPUT .\images\6.png
 INPUT report.aux
 INPUT .\report.out
 INPUT .\report.out

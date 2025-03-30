@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.9.26)  27 FEB 2025 10:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.9.26)  30 MAR 2025 12:13
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"c:/Users/garrido-lestacheh/OneDrive - Milwaukee School of Engineering/School/3rd/Sprin/Cloud & Microservices/Labs/Lab7/report/report.tex"
-(c:/Users/garrido-lestacheh/OneDrive - Milwaukee School of Engineering/School/3rd/Sprin/Cloud & Microservices/Labs/Lab7/report/report.tex
+**"c:/Users/garrido-lestacheh/OneDrive - Milwaukee School of Engineering/School/3rd/Sprin/Cloud & Microservices/Labs/Lab8/report/report.tex"
+(c:/Users/garrido-lestacheh/OneDrive - Milwaukee School of Engineering/School/3rd/Sprin/Cloud & Microservices/Labs/Lab8/report/report.tex
 LaTeX2e <2024-06-01> patch level 2
 L3 programming layer <2024-08-30>
 (C:\Users\garrido-lestacheh\AppData\Local\Programs\MiKTeX\tex/latex/base\Article.cls
@@ -391,7 +391,23 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count322
 \l__pdf_internal_box=\box61
-) (report.aux)
+) (report.aux
+
+LaTeX Warning: Label `fig:app' multiply defined.
+
+
+LaTeX Warning: Label `fig:app' multiply defined.
+
+
+LaTeX Warning: Label `fig:app' multiply defined.
+
+
+LaTeX Warning: Label `fig:app' multiply defined.
+
+
+LaTeX Warning: Label `fig:app' multiply defined.
+
+)
 \openout1 = `report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 47.
@@ -478,59 +494,75 @@ Package hyperref Info: Link coloring OFF on input line 47.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-<images/1.png, id=24, 1006.51031pt x 495.35063pt>
+<images/1.png, id=20, 1175.89313pt x 790.45313pt>
 File: images/1.png Graphic file (type png)
 <use images/1.png>
-Package pdftex.def Info: images/1.png  used on input line 65.
-(pdftex.def)             Requested size: 398.93158pt x 196.33028pt.
-<images/2.png, id=27, 737.00343pt x 100.87688pt>
-File: images/2.png Graphic file (type png)
-<use images/2.png>
-Package pdftex.def Info: images/2.png  used on input line 75.
-(pdftex.def)             Requested size: 398.93158pt x 54.60353pt.
+Package pdftex.def Info: images/1.png  used on input line 64.
+(pdftex.def)             Requested size: 398.93158pt x 268.1595pt.
 
 
 [1
 
-{C:/Users/garrido-lestacheh/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./images/1.png> <./images/2.png>]
-<images/3.png, id=42, 526.96875pt x 137.01187pt>
+{C:/Users/garrido-lestacheh/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./images/1.png>]
+<images/2.png, id=35, 619.56468pt x 312.41719pt>
+File: images/2.png Graphic file (type png)
+<use images/2.png>
+Package pdftex.def Info: images/2.png  used on input line 78.
+(pdftex.def)             Requested size: 398.93158pt x 201.16191pt.
+<images/3.png, id=37, 1069.74657pt x 791.95876pt>
 File: images/3.png Graphic file (type png)
 <use images/3.png>
-Package pdftex.def Info: images/3.png  used on input line 85.
-(pdftex.def)             Requested size: 398.93158pt x 103.72661pt.
-<images/4.png, id=44, 1437.87187pt x 804.75656pt>
+Package pdftex.def Info: images/3.png  used on input line 91.
+(pdftex.def)             Requested size: 398.93158pt x 295.34033pt.
+
+
+[2 <./images/2.png>]
+<images/4.png, id=45, 959.08313pt x 580.41844pt>
 File: images/4.png Graphic file (type png)
 <use images/4.png>
-Package pdftex.def Info: images/4.png  used on input line 97.
-(pdftex.def)             Requested size: 398.93158pt x 223.2796pt.
+Package pdftex.def Info: images/4.png  used on input line 102.
+(pdftex.def)             Requested size: 398.93158pt x 241.42712pt.
 
 
-[2 <./images/3.png> <./images/4.png>]
+[3 <./images/3.png>]
+<images/5.png, id=53, 928.21782pt x 638.385pt>
+File: images/5.png Graphic file (type png)
+<use images/5.png>
+Package pdftex.def Info: images/5.png  used on input line 112.
+(pdftex.def)             Requested size: 398.93158pt x 274.37355pt.
+<images/6.png, id=55, 985.43156pt x 383.93437pt>
+File: images/6.png Graphic file (type png)
+<use images/6.png>
+Package pdftex.def Info: images/6.png  used on input line 122.
+(pdftex.def)             Requested size: 398.93158pt x 155.42812pt.
 
-[3
 
-]
+[4 <./images/4.png> <./images/5.png>]
 
-[4] (report.aux)
+[5 <./images/6.png>] (report.aux)
  ***********
 LaTeX2e <2024-06-01> patch level 2
 L3 programming layer <2024-08-30>
  ***********
+
+
+LaTeX Warning: There were multiply-defined labels.
+
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: B49AD41283B8C87ED26292CF12F47DB7;784.
+(rerunfilecheck)             Checksum: C9250143209B3D8BE0079F1A535BBB98;637.
  ) 
 Here is how much of TeX's memory you used:
- 14481 strings out of 473899
- 235084 string characters out of 5720836
- 784600 words of memory out of 5000000
- 37164 multiletter control sequences out of 15000+600000
- 560943 words of font info for 46 fonts, out of 8000000 for 9000
+ 14489 strings out of 473899
+ 235235 string characters out of 5720836
+ 783600 words of memory out of 5000000
+ 37172 multiletter control sequences out of 15000+600000
+ 560636 words of font info for 45 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,8n,80p,431b,442s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/garrido-lestacheh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/garrido-lestacheh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/garrido-lestacheh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on report.pdf (4 pages, 230378 bytes).
+Output written on report.pdf (5 pages, 293127 bytes).
 PDF statistics:
- 85 PDF objects out of 1000 (max. 8388607)
+ 92 PDF objects out of 1000 (max. 8388607)
  19 named destinations out of 1000 (max. 500000)
- 61 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 63 words of extra memory for PDF output out of 10000 (max. 10000000)
 

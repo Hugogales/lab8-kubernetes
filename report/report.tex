@@ -38,7 +38,7 @@
 % Adjust the title position
 \setlength{\droptitle}{-6em}% Adjust the value as needed
 % Title and Author information
-\title{Lab 7 - Kubernetes Practice}
+\title{Lab 8 - Deploy over Digital Ocean hosted Kubernetes}
 \author{
     Hugo Garrido-Lestache
 }
@@ -48,108 +48,94 @@
 
 \maketitle
 \section*{Introduction}
-In this lab I will be using kubernetes to deploy a multi-pod application.
-This application will be a simple falsk app which will connect to a sql datbase.
-The flask app will have 3 pods and there will be 1 pod for the sql database.
-\\
-The sencond part of the lab I will be researching and describing an intresting use case for kubernetes.
+In this lab I will be creating a web app micro service and deploying it over a Digital Ocean hosted Kubernetes cluster.
+The web app will be a simple chat application that allows you to send messages to a chat room.
+It will be using a sql database to store the messages and a redis cache to store the users.
 
-\section{Kubernetes Practice}
-After following the instructions in the lab I was able to deploy the application.
-The application is a simple flask app that connects to a sql database.
-once I deployed the app I was able to access the app from the browser.
-Below is a screenshot of the app running in the browser in figure \ref{fig:app}.
+\section{Creating the app}
+First I created the app using flask and the code given to me by the professor.
+I added functions to add messages to the database, update the username and color of the user, and get the list of messages from the database.   
+From this I used AI to create a pretty frontend that allows you to send messages, update your username and color, and see the list of messages. 
+After this I ran the app locally to make sure it was working.
+Below is a screenshot of the app in action in figure \ref{fig:app}.
 
 \begin{figure}[H]
     \centering
     \fbox{\includegraphics[width=0.8\textwidth]{images/1.png}}
-    \caption{Flask app running in the browser}
+    \caption{Local testing}
     \label{fig:app}
 \end{figure}
 
-After ensuring the app was deployed I did curl request to the app to add a new user.
-Below is me adding a new user to the database in figure \ref{fig:curl}.
+\section{Pushing to Digital Ocean registry}
+After this I created a docker file to containerize the app.
+I went to digital ocean and created a container registry.
+After setting up the computer to have the correct credentials I was able to push the image to the registry.
+After this I ran the app from the digital ocean container registry and it worked as expected.
+Below is a screenshot of the app being ran from the digital ocean container registry in figure \ref{fig:app}.
 
 \begin{figure}[H]
     \centering
     \fbox{\includegraphics[width=0.8\textwidth]{images/2.png}}
-    \caption{Curl request to add a new user to the database}
-    \label{fig:curl}
+    \caption{Digital Ocean testing}
+    \label{fig:app}
 \end{figure}
 
-I then checked the database to ensure the user was added.
-Below is a screenshot of the database with the new user in figure \ref{fig:db}.
+\section{Deploying to Kubernetes}
+After this I created a kubernetes cluster on digital ocean.
+I gave the cluster permission to access the container registry.
+I then created a deployment and a service to deploy the app to the cluster.
+Below is a screenshot of the app being ran from the kubernetes cluster in figure \ref{fig:app}.
 
 \begin{figure}[H]
     \centering
     \fbox{\includegraphics[width=0.8\textwidth]{images/3.png}}
-    \caption{Database with the new user added}
-    \label{fig:db}
+    \caption{Kubernetes testing}
+    \label{fig:app}
 \end{figure}
 
-All these screenshot show that the application was deployed correctly and the database was connected to the flask app.
-I also additionally checked the minikube dashboard to check on the status.
-It was cool to see that there is a dashboard that shows the status of the pods and the services which is easy to acess and use.
-Below is a screenshot of the minikube dashboard in figure \ref{fig:dashboard}.
+\section{Testing the app}
+After this I tested the app by sending messages and updating the username and color.
+below is a screenshot of me sending a message in the app in figure \ref{fig:app}.
 
 \begin{figure}[H]
     \centering
     \fbox{\includegraphics[width=0.8\textwidth]{images/4.png}}
-    \caption{Minikube dashboard}
-    \label{fig:dashboard}
+    \caption{Testing the app}
+    \label{fig:app}
 \end{figure}
 
-\clearpage
-\section{Kubernetes Use Case}
-The use case I am going to describe is going to be for training complex reinforcement learning models.
-Reinforcement learning models difer from common machine learning models due to the fact that they dont just learn on data but also generate the data they learn from.
-This is useally done in a loop where the collect data and then learn from that data repeatedly.
-This process can be very computationally expensive and time consuming and could leverage from parallelization.
-Additionally Reinforcement learning have a lot of hyperparameters that need to be tuned and this can also be done in parallel.
-Additionally testing Reinforcement learning models may also be computationally expensive if the loss function is not directly tied to performance.
+I then changed the username to ensure that it was working.
+Below is a screenshot of the app with the username changed in figure \ref{fig:app}.
 
-\subsection{How Kubernetes can help}
-Kubernetes can help in many different ways and ideas.
+\begin{figure}[H]
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{images/5.png}}
+    \caption{Username change}
+    \label{fig:app}
+\end{figure}
 
-\begin{enumerate}
-  \item Faster training:
-  By using Kubernetes we can speed up both the training through the data collections process by scaling up the number of pods which simulate the environment and collect data.
+After that I changed the color of the user to ensure that it was working.
+Below is a screenshot of the app with the color changed in figure \ref{fig:app}.
 
-  \item Hyperparameter tuning:
-  By using Kubernetes we can run multiple pods with different hyperparameters and then compare the results to see which hyperparameters work best.
-  This can be done in quite intresting and complex methods such as terminating experiments early if they are not performing well and replacing them with new experiments.
-  We can also allocate resources in a manner which is relative to the performance of the experiments allowing for more resources to be allocated to the better performing experiments.
-  We can also be smart about how we select hyperparameters to try next by using bayesian optimization or other methods
+\begin{figure}[H]
+    \centering
+    \fbox{\includegraphics[width=0.8\textwidth]{images/6.png}}
+    \caption{Color change}
+    \label{fig:app}
+\end{figure}
 
-  \item Testing simultanously:
-  Some time measuring the quality of them model may also require some computational resources.
-  Using kubernetes we could create a new pod when a model needs to be tested and then delete the pod once the test is done.
-  This could allow for testing to be done in parallel and not slow down the training process.
-\end{enumerate}
-
-\subsection{Challenge with Pod networking}
-Some potencial challenges that may arise may be the compunication between the pods.
-Pods would have to communicate with with each other to share data and hyperparameters.
-This could be done through a shared volume or through a shared database but this could be a potential bottleneck.
-
-\subsection{Conclusion}
-Kubernetes could be a very useful tool for training complex reinforcement learning models.
-It could help speed up the final model training run time which may take days or weeks.
-Allowing for automatic managing of testing and experimenting with hyperparameters.
-
-Additionally if this is done in the cloud it gives you the ability to scale as much as you may want.
-This could be useful as you could can use a lot of resources quickly rather than having to wait for a long time to get the resources you need.
+I then send the link to my friends and we all were able to have a conversation together which was fun.
 
 \section*{feedback}
-This Lab was quite intresting in understanding and actually getting experience with kubernetes and how it can be used.
-I think I still need more undirected practive with kubernetes to better understand it but I think getting some initial experience was very helpful.
-I has issues trying to deploy the app which boiled down to me not naming my python file correctly which was a bit frustrating but I was able to figure it out.
-I think the lab was well structured and the instructions were clear and easy to follow.
-
-The use case idea was good in getting us to understand the benefits of kubernetes and how it can be used in a real world scenario.
-Thinking of you own usecase allows you to put your personal problems into perspective and see how kubernetes can help you solve them, making the lab more personal and intresting.
-Overall I think the lab was very good and I learned a lot from it.
+This lab was fun and intresting for learning how to deploy a flask app to a kubernetes cluster.
+I think the instructions were good and built on the previous labs to help us understand the concepts better.
+I had issues pushing the image and running the kubernetes cluster, I found that storing the my digital ocean key to the enviroment vairables seemed to fix the issue.
+Despite this I think the lab was very good.
+Going forward I would consider giving labs with less direction allowing us to research and figure out the methods on our own.
+This might be challenging for some students but I think being able to figure out the methods on our own would be very helpful.  
 
 
+\section*{Repo Link}
+\href{https://github.com/Hugogales/lab8-kubernetes}{https://github.com/Hugogales/lab8-kubernetes}
 
 \end{document}
